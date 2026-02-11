@@ -1,5 +1,5 @@
 <script setup lang="ts">
-import { ref, onMounted, computed } from 'vue';
+import { ref, onMounted, computed, toRaw } from 'vue';
 import { db, type Product } from '../stores/db';
 import {
     PlusIcon,
@@ -85,7 +85,7 @@ const saveProduct = async () => {
             await db.products.update(editingProduct.value.id!, formData.value);
         } else {
             // Add new product
-            await db.products.add(formData.value);
+            await db.products.add(toRaw(formData.value));
         }
 
         await loadProducts();
