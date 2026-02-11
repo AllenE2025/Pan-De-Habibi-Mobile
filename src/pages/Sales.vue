@@ -157,7 +157,7 @@ const formatTime = (dateString: string) => {
         <div v-if="selectedSale"
             class="fixed inset-0 bg-black bg-opacity-50 z-50 flex items-end sm:items-center justify-center"
             @click="closeSaleDetails">
-            <div class="bg-white rounded-t-2xl sm:rounded-2xl w-full sm:max-w-lg max-h-[80vh] overflow-hidden"
+            <div class="bg-white rounded-t-2xl sm:rounded-2xl w-full sm:max-w-lg max-h-[80vh] overflow-hidden mb-16"
                 @click.stop>
                 <!-- Modal Header -->
                 <div class="bg-orange-600 text-white p-4">
@@ -206,7 +206,7 @@ const formatTime = (dateString: string) => {
                                 <span>Cash Received:</span>
                                 <span>₱{{ selectedSale.customer_cash.toFixed(2) }}</span>
                             </div>
-                            <div class="flex justify-between text-gray-600">
+                            <div class="flex justify-between text-gray-600 pb-2">
                                 <span>Change:</span>
                                 <span>₱{{ selectedSale.change.toFixed(2) }}</span>
                             </div>

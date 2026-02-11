@@ -238,7 +238,7 @@ const deleteProduct = async (product: Product) => {
                 </div>
 
                 <!-- Modal Form -->
-                <form @submit.prevent="saveProduct" class="p-6 space-y-4">
+                <form @submit.prevent="saveProduct" class="p-6 space-y-4 mb-24">
                     <!-- Product Name -->
                     <div>
                         <label class="block text-sm font-medium text-gray-700 mb-2">
