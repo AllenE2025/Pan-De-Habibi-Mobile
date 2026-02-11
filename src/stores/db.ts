@@ -59,32 +59,15 @@ export async function seedDatabase() {
 
   const products: Product[] = [
     {
-      name: "Regular Pandesal",
+      name: "Classic Pandesal",
       price: 3.0,
       image: null,
       is_active: true,
     },
-    {
-      name: "Special Pandesal",
-      price: 5.0,
-      image: null,
-      is_active: true,
-    },
+
     {
       name: "Ube Pandesal",
-      price: 6.0,
-      image: null,
-      is_active: true,
-    },
-    {
-      name: "Cheese Pandesal",
       price: 7.0,
-      image: null,
-      is_active: true,
-    },
-    {
-      name: "Chocolate Pandesal",
-      price: 8.0,
       image: null,
       is_active: true,
     },
