@@ -11,6 +11,7 @@ import {
     ClipboardDocumentListIcon as ClipboardDocumentListIconSolid,
     CubeIcon as CubeIconSolid,
 } from '@heroicons/vue/24/solid';
+import PWAInstall from './PWAInstall.vue';
 
 const route = useRoute();
 
@@ -25,14 +26,17 @@ const pageTitle = computed(() => {
 
 <template>
     <div class="min-h-screen bg-gradient-to-br from-orange-100 to-yellow-100 pb-20">
+        <!-- PWA Install Prompt -->
+        <PWAInstall />
+
         <!-- Header -->
         <header class="bg-orange-600 text-white shadow-lg sticky top-0 z-40">
             <div class="max-w-7xl mx-auto px-4 py-4">
                 <div class="flex items-center gap-3">
-                    <img src="/images/pandehabibi_logo.jpg" alt="Logo" class="h-auto w-24 rounded-lg object-cover"
+                    <img src="/images/pandehabibi_logo.jpg" alt="Logo" class="h-12 w-12 rounded-full object-cover"
                         @error="(e) => (e.target as HTMLImageElement).style.display = 'none'" />
                     <div>
-                        <h1 class="text-xl font-bold">Pan De-Habibi</h1>
+                        <h1 class="text-xl font-bold">🥖 Pan De-Habibi</h1>
                         <p class="text-orange-100 text-sm">{{ pageTitle }}</p>
                     </div>
                 </div>
