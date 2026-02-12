@@ -11,7 +11,7 @@ import {
     ClipboardDocumentListIcon as ClipboardDocumentListIconSolid,
     CubeIcon as CubeIconSolid,
 } from '@heroicons/vue/24/solid';
-import PWAInstall from './PWAInstall.vue';
+import PWAInstall from '../layouts/PWAInstall.vue';
 
 const route = useRoute();
 

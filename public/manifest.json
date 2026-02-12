@@ -9,15 +9,15 @@
   "orientation": "portrait",
   "icons": [
     {
-      "src": "/pandehabibi_logo.jpg",
+      "src": "/images/pandehabibi_logo.jpg",
       "sizes": "192x192",
-      "type": "image/jpg",
+      "type": "image/jpeg",
       "purpose": "any maskable"
     },
     {
-      "src": "/pandehabibi_logo.jpg",
+      "src": "/images/pandehabibi_logo.jpg",
       "sizes": "512x512",
-      "type": "image/jpg",
+      "type": "image/jpeg",
       "purpose": "any maskable"
     }
   ]
