@@ -1,5 +1,5 @@
 {
-  "name": "Pan De-Habibi POS",
+  "name": "Pan De-Habibi",
   "short_name": "Pandesal POS",
   "description": "Offline-ready Point of Sale system for Pan De-Habibi bakery",
   "start_url": "/",
@@ -9,13 +9,13 @@
   "orientation": "portrait",
   "icons": [
     {
-      "src": "/icon-192.png",
+      "src": "/pandehabibi_logo.jpg",
       "sizes": "192x192",
       "type": "image/png",
       "purpose": "any maskable"
     },
     {
-      "src": "/icon-512.png",
+      "src": "/pandehabibi_logo.jpg",
       "sizes": "512x512",
       "type": "image/png",
       "purpose": "any maskable"
