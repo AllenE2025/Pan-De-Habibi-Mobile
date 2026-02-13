@@ -6,6 +6,7 @@ import {
     CalendarIcon,
     CurrencyDollarIcon,
     ShoppingBagIcon,
+    ReceiptPercentIcon,
 } from '@heroicons/vue/24/outline';
 
 interface SaleWithItems extends Sale {
@@ -24,7 +25,6 @@ onMounted(async () => {
 const loadSales = async () => {
     loading.value = true;
     try {
-        // Get all sales, sorted by date (newest first)
         const allSales = await db.sales.orderBy('sale_date').reverse().toArray();
         sales.value = allSales as SaleWithItems[];
     } catch (error) {
@@ -52,7 +52,6 @@ const totalSales = computed(() => {
 const totalTransactions = computed(() => sales.value.length);
 
 const viewSaleDetails = async (sale: SaleWithItems) => {
-    // Load sale items
     const items = await db.sale_items.where('sale_id').equals(sale.id!).toArray();
     selectedSale.value = { ...sale, items };
 };
@@ -86,67 +85,83 @@ const formatTime = (dateString: string) => {
         <!-- Stats Cards -->
         <div class="grid grid-cols-2 gap-4">
             <!-- Total Sales -->
-            <div class="bg-white rounded-xl shadow-lg p-4">
-                <div class="flex items-center gap-2 text-green-600 mb-2">
+            <div class="bg-gradient-to-br from-green-500 to-emerald-500 rounded-2xl shadow-xl p-5 text-white">
+                <div class="flex items-center gap-2 text-green-100 mb-2">
                     <CurrencyDollarIcon class="h-5 w-5" />
-                    <span class="text-sm font-medium">Total Sales</span>
+                    <span class="text-sm font-bold">Total Sales</span>
                 </div>
-                <p class="text-2xl font-bold text-gray-900">₱{{ totalSales.toFixed(2) }}</p>
+                <p class="text-3xl font-black">₱{{ totalSales.toFixed(2) }}</p>
             </div>
 
             <!-- Transactions -->
-            <div class="bg-white rounded-xl shadow-lg p-4">
-                <div class="flex items-center gap-2 text-blue-600 mb-2">
+            <div class="bg-gradient-to-br from-blue-500 to-cyan-500 rounded-2xl shadow-xl p-5 text-white">
+                <div class="flex items-center gap-2 text-blue-100 mb-2">
                     <ShoppingBagIcon class="h-5 w-5" />
-                    <span class="text-sm font-medium">Transactions</span>
+                    <span class="text-sm font-bold">Transactions</span>
                 </div>
-                <p class="text-2xl font-bold text-gray-900">{{ totalTransactions }}</p>
+                <p class="text-3xl font-black">{{ totalTransactions }}</p>
             </div>
         </div>
 
         <!-- Search Bar -->
-        <div class="bg-white rounded-xl shadow-lg p-4">
+        <div class="bg-white rounded-2xl shadow-xl p-4 border border-gray-100">
             <div class="relative">
-                <MagnifyingGlassIcon class="absolute left-3 top-1/2 -translate-y-1/2 h-5 w-5 text-gray-400" />
+                <MagnifyingGlassIcon class="absolute left-4 top-1/2 -translate-y-1/2 h-5 w-5 text-gray-400" />
                 <input v-model="searchQuery" type="text" placeholder="Search by date or amount..."
-                    class="w-full pl-10 pr-4 py-3 border-2 border-gray-200 rounded-lg focus:ring-2 focus:ring-orange-500 focus:border-transparent outline-none" />
+                    class="w-full pl-12 pr-4 py-4 border-2 border-gray-200 rounded-2xl focus:ring-4 focus:ring-orange-200 focus:border-orange-500 outline-none transition-all font-medium" />
             </div>
         </div>
 
         <!-- Sales List -->
-        <div class="bg-white rounded-xl shadow-lg overflow-hidden">
-            <div class="p-4 border-b border-gray-200">
-                <h2 class="text-lg font-bold text-gray-900">Sales History</h2>
+        <div class="bg-white rounded-2xl shadow-xl overflow-hidden border border-gray-100">
+            <div class="p-6 border-b-2 border-gray-100 bg-gradient-to-r from-gray-50 to-white">
+                <h2 class="text-xl font-bold text-gray-900 flex items-center gap-2">
+                    <ReceiptPercentIcon class="h-6 w-6 text-orange-600" />
+                    Sales History
+                </h2>
             </div>
 
             <!-- Loading State -->
-            <div v-if="loading" class="p-8 text-center text-gray-500">
-                <p>Loading sales...</p>
+            <div v-if="loading" class="p-12 text-center">
+                <div
+                    class="inline-block animate-spin rounded-full h-12 w-12 border-4 border-orange-200 border-t-orange-600">
+                </div>
+                <p class="mt-4 text-gray-600 font-medium">Loading sales...</p>
             </div>
 
             <!-- Empty State -->
-            <div v-else-if="filteredSales.length === 0" class="p-8 text-center text-gray-400">
-                <ShoppingBagIcon class="h-16 w-16 mx-auto mb-2 opacity-50" />
-                <p class="font-medium">{{ searchQuery ? 'No sales found' : 'No sales yet' }}</p>
+            <div v-else-if="filteredSales.length === 0" class="p-12 text-center text-gray-400">
+                <div class="inline-flex items-center justify-center w-20 h-20 rounded-full bg-gray-100 mb-4">
+                    <ShoppingBagIcon class="h-10 w-10" />
+                </div>
+                <p class="font-semibold text-gray-900 mb-1">{{ searchQuery ? 'No sales found' : 'No sales yet' }}</p>
                 <p class="text-sm">{{ searchQuery ? 'Try a different search' : 'Start making sales!' }}</p>
             </div>
 
             <!-- Sales Items -->
-            <div v-else class="divide-y divide-gray-200 max-h-96 overflow-y-auto">
+            <div v-else class="divide-y-2 divide-gray-100 max-h-[500px] overflow-y-auto custom-scrollbar">
                 <button v-for="sale in filteredSales" :key="sale.id" @click="viewSaleDetails(sale)"
-                    class="w-full p-4 hover:bg-gray-50 transition-colors text-left">
-                    <div class="flex justify-between items-start mb-2">
-                        <div>
-                            <div class="flex items-center gap-2 text-sm text-gray-600 mb-1">
+                    class="w-full p-5 hover:bg-gradient-to-r hover:from-orange-50 hover:to-pink-50 transition-all text-left group">
+                    <div class="flex justify-between items-start gap-4">
+                        <div class="flex-1">
+                            <div class="flex items-center gap-2 text-sm text-gray-600 mb-2 font-medium">
                                 <CalendarIcon class="h-4 w-4" />
                                 <span>{{ formatDate(sale.sale_date) }}</span>
                             </div>
-                            <p class="text-xs text-gray-500">{{ sale.items_count }} item{{ sale.items_count > 1 ? 's' :
-                                '' }}</p>
+                            <div
+                                class="inline-flex items-center gap-2 bg-gray-100 group-hover:bg-white rounded-full px-3 py-1">
+                                <ShoppingBagIcon class="h-3 w-3 text-gray-600" />
+                                <span class="text-xs font-bold text-gray-700">
+                                    {{ sale.items_count }} item{{ sale.items_count > 1 ? 's' : '' }}
+                                </span>
+                            </div>
                         </div>
                         <div class="text-right">
-                            <p class="text-lg font-bold text-gray-900">₱{{ sale.total_amount.toFixed(2) }}</p>
-                            <p class="text-xs text-gray-500">{{ formatTime(sale.sale_date) }}</p>
+                            <p
+                                class="text-2xl font-black bg-gradient-to-r from-green-600 to-emerald-600 bg-clip-text text-transparent">
+                                ₱{{ sale.total_amount.toFixed(2) }}
+                            </p>
+                            <p class="text-xs font-semibold text-gray-500 mt-1">{{ formatTime(sale.sale_date) }}</p>
                         </div>
                     </div>
                 </button>
@@ -155,60 +170,71 @@ const formatTime = (dateString: string) => {
 
         <!-- Sale Details Modal -->
         <div v-if="selectedSale"
-            class="fixed inset-0 bg-black bg-opacity-50 z-50 flex items-end sm:items-center justify-center"
+            class="fixed inset-0 bg-black/60 backdrop-blur-sm z-60 flex items-end sm:items-center justify-center p-4"
             @click="closeSaleDetails">
-            <div class="bg-white rounded-t-2xl sm:rounded-2xl w-full sm:max-w-lg max-h-[80vh] overflow-hidden mb-16"
-                @click.stop>
+            <div class="bg-white rounded-3xl w-full sm:max-w-lg max-h-[85vh] overflow-hidden shadow-2xl mb-20" @click.stop>
                 <!-- Modal Header -->
-                <div class="bg-orange-600 text-white p-4">
+                <div class="bg-gradient-to-r from-orange-500 to-pink-500 text-white p-6">
                     <div class="flex justify-between items-center mb-2">
-                        <h3 class="text-lg font-bold">Sale Details</h3>
-                        <button @click="closeSaleDetails" class="text-white hover:text-orange-200">
+                        <h3 class="text-2xl font-black">🧾 Sale Details</h3>
+                        <button @click="closeSaleDetails"
+                            class="text-white hover:bg-white/20 rounded-full p-2 transition-all">
                             <svg class="h-6 w-6" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
+                                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="3"
                                     d="M6 18L18 6M6 6l12 12" />
                             </svg>
                         </button>
                     </div>
-                    <p class="text-orange-100 text-sm">{{ formatDate(selectedSale.sale_date) }}</p>
+                    <p class="text-orange-100 text-sm font-medium">{{ formatDate(selectedSale.sale_date) }}</p>
                 </div>
 
                 <!-- Modal Content -->
-                <div class="p-4 space-y-4 overflow-y-auto max-h-[calc(80vh-120px)]">
+                <div class="p-6 space-y-6 overflow-y-auto max-h-[calc(85vh-180px)] custom-scrollbar">
                     <!-- Items -->
                     <div v-if="selectedSale.items && selectedSale.items.length > 0">
-                        <h4 class="font-semibold text-gray-700 mb-2">Items</h4>
-                        <div class="space-y-2">
+                        <h4 class="font-bold text-gray-700 mb-3 flex items-center gap-2">
+                            <ShoppingBagIcon class="h-5 w-5" />
+                            Items
+                        </h4>
+                        <div class="space-y-3">
                             <div v-for="item in selectedSale.items" :key="item.id"
-                                class="flex justify-between items-center bg-gray-50 rounded-lg p-3">
-                                <div>
-                                    <p class="font-medium text-gray-900">{{ item.product_name }}</p>
-                                    <p class="text-sm text-gray-500">{{ item.quantity }} × ₱{{ item.price.toFixed(2) }}
+                                class="flex justify-between items-center bg-gradient-to-r from-gray-50 to-gray-100 rounded-2xl p-4 border border-gray-200">
+                                <div class="flex-1">
+                                    <p class="font-bold text-gray-900">{{ item.product_name }}</p>
+                                    <p class="text-sm text-gray-600 font-medium">
+                                        {{ item.quantity }} × ₱{{ item.price.toFixed(2) }}
                                     </p>
                                 </div>
-                                <p class="font-bold text-gray-900">₱{{ item.subtotal.toFixed(2) }}</p>
+                                <p class="font-black text-lg text-gray-900">₱{{ item.subtotal.toFixed(2) }}</p>
                             </div>
                         </div>
                     </div>
 
                     <!-- Summary -->
-                    <div class="border-t pt-4">
-                        <div class="flex justify-between items-center text-lg">
-                            <span class="font-semibold text-gray-700">Total Items:</span>
-                            <span class="font-bold text-gray-900">{{ selectedSale.items_count }}</span>
+                    <div class="border-t-2 border-gray-200 pt-6 space-y-4">
+                        <div class="flex justify-between items-center p-4 bg-blue-50 rounded-2xl">
+                            <span class="font-bold text-gray-700">Total Items</span>
+                            <span class="font-black text-xl text-gray-900">{{ selectedSale.items_count }}</span>
                         </div>
-                        <div class="flex justify-between items-center text-xl mt-2">
-                            <span class="font-bold text-gray-700">Total Amount:</span>
-                            <span class="font-bold text-green-600">₱{{ selectedSale.total_amount.toFixed(2) }}</span>
+
+                        <div
+                            class="flex justify-between items-center p-5 bg-gradient-to-r from-green-50 to-emerald-50 rounded-2xl border-2 border-green-200">
+                            <span class="font-bold text-lg text-gray-700">Total Amount</span>
+                            <span
+                                class="font-black text-3xl bg-gradient-to-r from-green-600 to-emerald-600 bg-clip-text text-transparent">
+                                ₱{{ selectedSale.total_amount.toFixed(2) }}
+                            </span>
                         </div>
-                        <div v-if="selectedSale.customer_cash" class="mt-4 space-y-1 text-sm">
-                            <div class="flex justify-between text-gray-600">
-                                <span>Cash Received:</span>
-                                <span>₱{{ selectedSale.customer_cash.toFixed(2) }}</span>
+
+                        <div v-if="selectedSale.customer_cash"
+                            class="space-y-3 p-5 bg-purple-50 rounded-2xl border border-purple-200">
+                            <div class="flex justify-between text-gray-700">
+                                <span class="font-bold">Cash Received</span>
+                                <span class="font-black">₱{{ selectedSale.customer_cash.toFixed(2) }}</span>
                             </div>
-                            <div class="flex justify-between text-gray-600 pb-2">
-                                <span>Change:</span>
-                                <span>₱{{ selectedSale.change.toFixed(2) }}</span>
+                            <div class="flex justify-between text-purple-600 pt-3 border-t-2 border-purple-200">
+                                <span class="font-bold">Change</span>
+                                <span class="font-black text-xl">₱{{ selectedSale.change.toFixed(2) }}</span>
                             </div>
                         </div>
                     </div>
@@ -217,3 +243,23 @@ const formatTime = (dateString: string) => {
         </div>
     </div>
 </template>
+
+<style scoped>
+.custom-scrollbar::-webkit-scrollbar {
+    width: 6px;
+}
+
+.custom-scrollbar::-webkit-scrollbar-track {
+    background: #f1f1f1;
+    border-radius: 10px;
+}
+
+.custom-scrollbar::-webkit-scrollbar-thumb {
+    background: linear-gradient(to bottom, #f97316, #ec4899);
+    border-radius: 10px;
+}
+
+.custom-scrollbar::-webkit-scrollbar-thumb:hover {
+    background: linear-gradient(to bottom, #ea580c, #db2777);
+}
+</style>
