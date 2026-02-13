@@ -136,7 +136,7 @@ const completeSale = async () => {
 
         // Success - clear cart and show toast
         clearCart();
-        showToastMessage(`Sale completed! Total: ₱${totalAmount.value.toFixed(2)}`);
+        showToastMessage('Sale completed!');
     } catch (error) {
         console.error('Failed to save sale:', error);
         showToastMessage('Failed to complete sale. Please try again.', 'error');
