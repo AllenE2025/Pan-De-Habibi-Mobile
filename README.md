@@ -1,5 +1,120 @@
-# Vue 3 + TypeScript + Vite
+# 🥖 Pan De-Habibi POS
 
-This template should help get you started developing with Vue 3 and TypeScript in Vite. The template uses Vue 3 `<script setup>` SFCs, check out the [script setup docs](https://v3.vuejs.org/api/sfc-script-setup.html#sfc-script-setup) to learn more.
+**An offline-first mobile Point of Sale system for Pan De-Habibi bakery**
 
-Learn more about the recommended Project Setup and IDE Support in the [Vue Docs TypeScript Guide](https://vuejs.org/guide/typescript/overview.html#project-setup).
+A simple, fast, and reliable POS app that works even without internet. Built for bakery cashiers to process sales quickly on mobile devices.
+
+---
+
+## 📱 Screenshots
+
+<div align="center">
+
+| POS Page | Sales History | Products Management |
+|----------|---------------|---------------------|
+| ![POS](screenshots/pos_page.jpg) | ![Sales](screenshots/sales_page.jpg) | ![Products](screenshots/products_page.jpg) |
+
+</div>
+
+---
+
+## ✨ Features
+
+### 🛒 Point of Sale
+- Tap products to add to cart
+- Adjust quantities with +/- buttons
+- Calculate change automatically
+- Complete sales with one tap
+
+### 📊 Sales History
+- View all past transactions
+- Tap any sale to see details
+- Search by date or amount
+- See total sales and revenue
+
+### 📦 Product Management
+- Add, edit, or delete products
+- Set prices and product names
+- Toggle products on/off without deleting
+- Search and filter products
+
+### 📱 Works Offline
+- All data stored on your device
+- No internet required
+- Works like a native mobile app
+- Install to home screen
+
+---
+
+## 🚀 Live Demo
+
+Visit: **[Pan De-Habibi App](https://pan-de-habibi-mobile.vercel.app/)**
+
+**On mobile:**
+1. Open the link in Chrome or Safari
+2. Tap "Add to Home Screen" when prompted
+3. Open from your home screen like a regular app
+
+---
+
+## 💾 Data Storage
+
+Your data is saved in your browser's local storage:
+- **Products** - Your menu items
+- **Sales** - All completed transactions
+- **Safe & Private** - Data never leaves your device
+
+⚠️ **Important:** Don't clear your browser data or you'll lose your sales history!
+
+---
+
+## 📖 How to Use
+
+### Making a Sale
+1. Tap products to add to cart
+2. Use +/- to adjust quantities
+3. Enter customer's cash amount
+4. Tap "Complete Sale"
+
+### Viewing Sales
+1. Go to "Sales" tab
+2. Browse all transactions
+3. Tap any sale to see full details
+
+### Managing Products
+1. Go to "Products" tab
+2. Tap **+** to add new product
+3. Tap **edit** to modify product
+4. Tap **delete** to remove product
+
+---
+
+## 🏗️ Built With
+
+- **Vue 3** - Frontend framework
+- **TypeScript** - Type safety
+- **Tailwind CSS** - Styling
+- **IndexedDB** - Local database
+- **PWA** - Installable web app
+
+---
+
+## 📞 Support
+
+Questions? Contact: **[evangelista.davidallen2003@gmail.com](mailto:evangelista.davidallen2003@gmail.com)**
+
+---
+
+## 📄 License
+
+MIT License - Feel free to use for your own bakery!
+
+---
+
+<div align="center">
+
+**Made with ❤️ for Pan De-Habibi Bakery**
+
+⭐ Star this repo if you find it useful!
+
+</div>
