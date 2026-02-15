@@ -37,7 +37,7 @@ input, textarea {
 /* ===== iOS Safe Area Support ===== */
 
 /* Bottom navigation safe area */
-@supports (padding-bottom: env(safe-area-inset-bottom)) {
+/* @supports (padding-bottom: env(safe-area-inset-bottom)) {
   .pb-safe {
     padding-bottom: env(safe-area-inset-bottom);
   }
@@ -45,7 +45,7 @@ input, textarea {
   .pb-safe-extra {
     padding-bottom: calc(5rem + env(safe-area-inset-bottom));
   }
-}
+} */
 
 /* Fallback for older browsers */
 /* .pb-safe {
