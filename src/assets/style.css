@@ -33,3 +33,29 @@ input, textarea {
   -webkit-user-select: text;
   user-select: text;
 }
+
+/* ===== iOS Safe Area Support ===== */
+
+/* Bottom navigation safe area */
+@supports (padding-bottom: env(safe-area-inset-bottom)) {
+  .pb-safe {
+    padding-bottom: env(safe-area-inset-bottom);
+  }
+  
+  .pb-safe-extra {
+    padding-bottom: calc(5rem + env(safe-area-inset-bottom));
+  }
+}
+
+/* Fallback for older browsers */
+.pb-safe {
+  padding-bottom: 0;
+  padding-bottom: constant(safe-area-inset-bottom);
+  padding-bottom: env(safe-area-inset-bottom);
+}
+
+.pb-safe-extra {
+  padding-bottom: 5rem;
+  padding-bottom: calc(5rem + constant(safe-area-inset-bottom));
+  padding-bottom: calc(5rem + env(safe-area-inset-bottom));
+}

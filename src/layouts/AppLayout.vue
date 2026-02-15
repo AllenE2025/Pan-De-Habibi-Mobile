@@ -27,7 +27,8 @@ const pageTitle = computed(() => {
 </script>
 
 <template>
-    <div class="min-h-screen bg-gradient-to-br from-orange-50 via-pink-50 to-purple-50 pb-20">
+    <div
+        class="h-full bg-gradient-to-br from-orange-50 via-pink-50 to-purple-50 pb-20 pb-safe-extra flex flex-col overflow-hidden">
         <!-- PWA Install Prompt -->
         <PWAInstall />
 
@@ -53,14 +54,14 @@ const pageTitle = computed(() => {
             </div>
         </header>
 
-        <!-- Main Content -->
-        <main class="max-w-7xl mx-auto">
+       <!-- Main Content -->
+        <main class="flex-1 overflow-y-auto max-w-7xl mx-auto w-full">
             <slot />
         </main>
 
         <!-- Bottom Navigation (Mobile-First) -->
         <nav
-            class="fixed bottom-0 left-0 right-0 bg-white/95 backdrop-blur-lg border-t-2 border-gray-200 shadow-2xl z-50">
+            class="fixed bottom-0 left-0 right-0 bg-white/95 backdrop-blur-lg border-t-2 border-gray-200 shadow-2xl z-50 flex-shrink-0 pb-safe">
             <div class="max-w-7xl mx-auto px-2">
                 <div class="flex justify-around items-center py-1">
                     <!-- POS Tab -->
