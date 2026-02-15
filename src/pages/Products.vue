@@ -178,7 +178,8 @@ const deleteProduct = async () => {
         <div class="bg-white rounded-2xl shadow-xl p-4 border border-gray-100">
             <div class="relative">
                 <MagnifyingGlassIcon class="absolute left-4 top-1/2 -translate-y-1/2 h-5 w-5 text-gray-400" />
-                <input v-model="searchQuery" type="text" placeholder="Search products..."
+                <input v-model="searchQuery" type="search" inputmode="search" enterkeyhint="search"
+                    @keydown.enter="($event.target as HTMLInputElement).blur()" placeholder="Search products..."
                     class="w-full pl-12 pr-4 py-4 border-2 border-gray-200 rounded-2xl focus:ring-4 focus:ring-orange-200 focus:border-orange-500 outline-none transition-all font-medium" />
             </div>
         </div>
@@ -270,7 +271,7 @@ const deleteProduct = async () => {
                 <div class="bg-gradient-to-r from-orange-500 to-pink-500 text-white p-6 rounded-t-3xl">
                     <div class="flex justify-between items-center">
                         <h3 class="text-2xl font-black">
-                            {{ editingProduct ? '✏️ Edit Product' : '➕ Add Product' }}
+                            {{ editingProduct ? 'Edit Product' : 'Add Product' }}
                         </h3>
                         <button @click="closeModal"
                             class="text-white hover:bg-white/20 rounded-full p-2 transition-all">

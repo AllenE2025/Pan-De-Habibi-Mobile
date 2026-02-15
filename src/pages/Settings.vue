@@ -35,6 +35,10 @@ const toastType = ref<'success' | 'error'>('success');
 const showRestoreModal = ref(false);
 const restoreFile = ref<File | null>(null);
 
+// Export confirmation modal
+const showExportConfirm = ref(false);
+const exportType = ref<'sales' | 'products' | 'backup'>('sales');
+
 onMounted(async () => {
     await loadStorageInfo();
 });
@@ -47,6 +51,26 @@ const showToastMessage = (message: string, type: 'success' | 'error' = 'success'
     toastMessage.value = message;
     toastType.value = type;
     showToast.value = true;
+};
+
+const openExportConfirm = (type: 'sales' | 'products' | 'backup') => {
+    exportType.value = type;
+    showExportConfirm.value = true;
+};
+
+const closeExportConfirm = () => {
+    showExportConfirm.value = false;
+};
+
+const confirmExport = async () => {
+    closeExportConfirm();
+    if (exportType.value === 'sales') {
+        await handleExportSales();
+    } else if (exportType.value === 'products') {
+        await handleExportProducts();
+    } else if (exportType.value === 'backup') {
+        await handleCreateBackup();
+    }
 };
 
 const handleExportSales = async () => {
@@ -125,10 +149,22 @@ const handleRestoreBackup = async () => {
         loading.value = false;
     }
 };
+
+const getExportTitle = () => {
+    if (exportType.value === 'sales') return 'Export Sales?';
+    if (exportType.value === 'products') return 'Export Products?';
+    return 'Create Backup?';
+};
+
+const getExportMessage = () => {
+    if (exportType.value === 'sales') return 'Download all sales records as CSV file';
+    if (exportType.value === 'products') return 'Download all products as CSV file';
+    return 'Download complete backup of all data as JSON file';
+};
 </script>
 
 <template>
-    <div class="px-4 py-6 space-y-6">
+    <div class="px-4 pt-6 space-y-6">
         <!-- Toast -->
         <Toast :show="showToast" :message="toastMessage" :type="toastType" @close="showToast = false" />
 
@@ -209,7 +245,7 @@ const handleRestoreBackup = async () => {
 
             <div class="p-6 space-y-3">
                 <!-- Export Sales -->
-                <button @click="handleExportSales" :disabled="loading || storageInfo.sales === 0"
+                <button @click="openExportConfirm('sales')" :disabled="loading || storageInfo.sales === 0"
                     class="w-full flex items-center justify-between p-5 bg-gradient-to-r from-green-50 to-emerald-50 hover:from-green-100 hover:to-emerald-100 rounded-2xl border-2 border-green-200 transition-all active:scale-95 disabled:opacity-50 disabled:cursor-not-allowed">
                     <div class="flex items-center gap-3">
                         <div class="p-2 bg-green-500 rounded-xl">
@@ -224,7 +260,7 @@ const handleRestoreBackup = async () => {
                 </button>
 
                 <!-- Export Products -->
-                <button @click="handleExportProducts" :disabled="loading || storageInfo.products === 0"
+                <button @click="openExportConfirm('products')" :disabled="loading || storageInfo.products === 0"
                     class="w-full flex items-center justify-between p-5 bg-gradient-to-r from-blue-50 to-cyan-50 hover:from-blue-100 hover:to-cyan-100 rounded-2xl border-2 border-blue-200 transition-all active:scale-95 disabled:opacity-50 disabled:cursor-not-allowed">
                     <div class="flex items-center gap-3">
                         <div class="p-2 bg-blue-500 rounded-xl">
@@ -252,7 +288,7 @@ const handleRestoreBackup = async () => {
 
             <div class="p-6 space-y-3">
                 <!-- Create Backup -->
-                <button @click="handleCreateBackup" :disabled="loading"
+                <button @click="openExportConfirm('backup')" :disabled="loading"
                     class="w-full flex items-center justify-between p-5 bg-gradient-to-r from-purple-50 to-pink-50 hover:from-purple-100 hover:to-pink-100 rounded-2xl border-2 border-purple-200 transition-all active:scale-95 disabled:opacity-50">
                     <div class="flex items-center gap-3">
                         <div class="p-2 bg-gradient-to-r from-purple-500 to-pink-500 rounded-xl">
@@ -280,6 +316,33 @@ const handleRestoreBackup = async () => {
                     </div>
                     <ExclamationTriangleIcon class="h-5 w-5 text-orange-600" />
                 </button>
+            </div>
+        </div>
+
+        <!-- Export Confirmation Modal -->
+        <div v-if="showExportConfirm"
+            class="fixed inset-0 bg-black/60 backdrop-blur-sm z-50 flex items-center justify-center p-4"
+            @click="closeExportConfirm">
+            <div class="bg-white rounded-3xl w-full max-w-sm shadow-2xl" @click.stop>
+                <div class="p-8 text-center">
+                    <div class="inline-flex items-center justify-center w-16 h-16 rounded-full bg-blue-100 mb-4">
+                        <ArrowDownTrayIcon class="h-8 w-8 text-blue-600" />
+                    </div>
+                    <h3 class="text-2xl font-black text-gray-900 mb-2">{{ getExportTitle() }}</h3>
+                    <p class="text-gray-600 mb-6">
+                        {{ getExportMessage() }}
+                    </p>
+                    <div class="flex gap-3">
+                        <button @click="closeExportConfirm"
+                            class="flex-1 px-6 py-4 border-2 border-gray-300 text-gray-700 font-bold rounded-2xl hover:bg-gray-50 transition-all active:scale-95">
+                            Cancel
+                        </button>
+                        <button @click="confirmExport"
+                            class="flex-1 px-6 py-4 bg-gradient-to-r from-blue-500 to-cyan-500 hover:from-blue-600 hover:to-cyan-600 text-white font-black rounded-2xl transition-all shadow-xl active:scale-95">
+                            Export
+                        </button>
+                    </div>
+                </div>
             </div>
         </div>
 
