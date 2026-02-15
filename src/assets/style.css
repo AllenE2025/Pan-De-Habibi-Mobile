@@ -2,7 +2,33 @@
 @tailwind components;
 @tailwind utilities;
 
+/* Disable double-tap zoom */
+* {
+  touch-action: manipulation;
+}
+
+/* Prevent text selection on double-tap */
 body {
-  margin: 0;
-  padding: 0;
+  -webkit-user-select: none;
+  user-select: none;
+  -webkit-touch-callout: none;
+}
+
+/* Allow text selection in inputs only */
+input, textarea {
+  -webkit-user-select: text;
+  user-select: text;
+}
+
+body {
+  overscroll-behavior: none;
+  position: fixed;
+  width: 100%;
+  height: 100%;
+}
+
+#app {
+  height: 100vh;
+  overflow-y: auto;
+  -webkit-overflow-scrolling: touch;
 }

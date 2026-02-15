@@ -10,9 +10,9 @@ A simple, fast, and reliable POS app that works even without internet. Built for
 
 <div align="center">
 
-| POS Page | Sales History | Products Management |
-|----------|---------------|---------------------|
-| ![POS](screenshots/pos_page.jpg) | ![Sales](screenshots/sales_page.jpg) | ![Products](screenshots/products_page.jpg) |
+| POS Page | Sales History | Products Management | Settings & Backup |
+|----------|---------------|---------------------|-------------------|
+| ![POS](screenshots/pos_page.jpg) | ![Sales](screenshots/sales_page.jpg) | ![Products](screenshots/products_page.jpg) | ![Settings](screenshots/settings_page.jpg) |
 
 </div>
 
@@ -37,6 +37,13 @@ A simple, fast, and reliable POS app that works even without internet. Built for
 - Set prices and product names
 - Toggle products on/off without deleting
 - Search and filter products
+
+### 🛡️ Backup & Export
+- Create full backup of all data
+- Export sales to CSV format
+- Export products to CSV format
+- Restore data from backup files
+- View storage statistics
 
 ### 📱 Works Offline
 - All data stored on your device
@@ -66,6 +73,8 @@ Your data is saved in your browser's local storage:
 
 ⚠️ **Important:** Don't clear your browser data or you'll lose your sales history!
 
+💡 **Tip:** Use the Settings tab to create weekly backups and save them to iCloud or Google Drive for extra safety.
+
 ---
 
 ## 📖 How to Use
@@ -86,6 +95,12 @@ Your data is saved in your browser's local storage:
 2. Tap **+** to add new product
 3. Tap **edit** to modify product
 4. Tap **delete** to remove product
+
+### Creating Backups
+1. Go to "Settings" tab
+2. Tap **"Create Full Backup"** to download all data
+3. Save the backup file to iCloud or Google Drive
+4. Use **"Restore from Backup"** to recover data if needed
 
 ---
 
