@@ -5,11 +5,13 @@ import {
     ShoppingCartIcon,
     ClipboardDocumentListIcon,
     CubeIcon,
+    Cog6ToothIcon,
 } from '@heroicons/vue/24/outline';
 import {
     ShoppingCartIcon as ShoppingCartIconSolid,
     ClipboardDocumentListIcon as ClipboardDocumentListIconSolid,
     CubeIcon as CubeIconSolid,
+    Cog6ToothIcon as Cog6ToothIconSolid,
 } from '@heroicons/vue/24/solid';
 import PWAInstall from '../layouts/PWAInstall.vue';
 
@@ -41,8 +43,8 @@ const pageTitle = computed(() => {
                             @error="(e) => (e.target as HTMLImageElement).style.display = 'none'" />
                     </div>
                     <div class="flex-1">
-                        <h1 class="text-2xl font-black tracking-tight drop-shadow-lg">Pan De-Habibi</h1>
-                        <p class="text-sm font-bold text-white/90 flex items-center gap-2">
+                        <!-- <h1 class="text-2xl font-black tracking-tight drop-shadow-lg">Pan De-Habibi</h1> -->
+                        <p class="text-2xl font-bold text-white/90 flex items-center gap-2">
                             <span class="w-1.5 h-1.5 bg-white rounded-full animate-pulse"></span>
                             {{ pageTitle }}
                         </p>
@@ -63,7 +65,7 @@ const pageTitle = computed(() => {
                 <div class="flex justify-around items-center py-1">
                     <!-- POS Tab -->
                     <router-link to="/" :class="[
-                        'flex flex-col items-center justify-center py-3 px-5 rounded-2xl transition-all duration-200',
+                        'flex flex-col items-center justify-center py-3 px-4 rounded-2xl transition-all duration-200',
                         isActive('pos')
                             ? 'bg-gradient-to-br from-orange-500 to-pink-500 text-white shadow-lg scale-105'
                             : 'text-gray-500 hover:text-orange-600 hover:bg-orange-50 active:scale-95'
@@ -83,7 +85,7 @@ const pageTitle = computed(() => {
 
                     <!-- Sales Tab -->
                     <router-link to="/sales" :class="[
-                        'flex flex-col items-center justify-center py-3 px-5 rounded-2xl transition-all duration-200',
+                        'flex flex-col items-center justify-center py-3 px-4 rounded-2xl transition-all duration-200',
                         isActive('sales')
                             ? 'bg-gradient-to-br from-green-500 to-emerald-500 text-white shadow-lg scale-105'
                             : 'text-gray-500 hover:text-green-600 hover:bg-green-50 active:scale-95'
@@ -103,7 +105,7 @@ const pageTitle = computed(() => {
 
                     <!-- Products Tab -->
                     <router-link to="/products" :class="[
-                        'flex flex-col items-center justify-center py-3 px-5 rounded-2xl transition-all duration-200',
+                        'flex flex-col items-center justify-center py-3 px-4 rounded-2xl transition-all duration-200',
                         isActive('products')
                             ? 'bg-gradient-to-br from-blue-500 to-cyan-500 text-white shadow-lg scale-105'
                             : 'text-gray-500 hover:text-blue-600 hover:bg-blue-50 active:scale-95'
@@ -119,6 +121,26 @@ const pageTitle = computed(() => {
                             'text-xs font-bold mt-1',
                             isActive('products') ? 'drop-shadow' : ''
                         ]">Products</span>
+                    </router-link>
+
+                    <!-- Settings Tab -->
+                    <router-link to="/settings" :class="[
+                        'flex flex-col items-center justify-center py-3 px-4 rounded-2xl transition-all duration-200',
+                        isActive('settings')
+                            ? 'bg-gradient-to-br from-purple-500 to-pink-500 text-white shadow-lg scale-105'
+                            : 'text-gray-500 hover:text-purple-600 hover:bg-purple-50 active:scale-95'
+                    ]">
+                        <div :class="[
+                            'p-1.5 rounded-xl transition-all',
+                            isActive('settings') ? 'bg-white/20' : ''
+                        ]">
+                            <Cog6ToothIconSolid v-if="isActive('settings')" class="h-6 w-6" />
+                            <Cog6ToothIcon v-else class="h-6 w-6" />
+                        </div>
+                        <span :class="[
+                            'text-xs font-bold mt-1',
+                            isActive('settings') ? 'drop-shadow' : ''
+                        ]">Settings</span>
                     </router-link>
                 </div>
             </div>

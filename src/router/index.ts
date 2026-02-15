@@ -2,6 +2,7 @@ import { createRouter, createWebHistory } from "vue-router";
 import POS from "../pages/POS.vue";
 import Sales from "../pages/Sales.vue";
 import Products from "../pages/Products.vue";
+import Settings from "../pages/Settings.vue";
 
 const routes = [
   {
@@ -21,6 +22,12 @@ const routes = [
     name: "products",
     component: Products,
     meta: { title: "Products" },
+  },
+  {
+    path: "/settings",
+    name: "settings",
+    component: Settings,
+    meta: { title: "Settings" },
   },
 ];
 
