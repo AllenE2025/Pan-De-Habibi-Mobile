@@ -12,7 +12,7 @@
 html, body {
   margin: 0;
   padding: 0;
-  overscroll-behavior-y: contain; /* Prevents pull-to-refresh */
+  overscroll-behavior-y: contain;
   position: fixed;
   overflow: hidden;
   width: 100%;
@@ -25,7 +25,7 @@ html, body {
   overflow-y: auto;
   overflow-x: hidden;
   -webkit-overflow-scrolling: touch;
-  overscroll-behavior-y: contain; /* Critical for preventing reload */
+  overscroll-behavior-y: contain;
 }
 
 /* Allow text selection in inputs */
@@ -34,44 +34,15 @@ input, textarea {
   user-select: text;
 }
 
-/* ===== iOS Safe Area Support ===== */
-
-/* Bottom navigation safe area */
-/* @supports (padding-bottom: env(safe-area-inset-bottom)) {
-  .pb-safe {
-    padding-bottom: env(safe-area-inset-bottom);
-  }
-  
-  .pb-safe-extra {
-    padding-bottom: calc(5rem + env(safe-area-inset-bottom));
-  }
-} */
-
-/* Fallback for older browsers */
-/* .pb-safe {
-  padding-bottom: 0;
-  padding-bottom: constant(safe-area-inset-bottom);
-  padding-bottom: env(safe-area-inset-bottom);
-}
-
-.pb-safe-extra {
-  padding-bottom: 5rem;
-  padding-bottom: calc(5rem + constant(safe-area-inset-bottom));
-  padding-bottom: calc(5rem + env(safe-area-inset-bottom));
-} */
-
-/* ===== iOS Safe Area Support (Top Only) ===== */
-
-/* Top header safe area for notch/Dynamic Island */
+/* iOS Safe Area - Top Only */
 @supports (padding-top: env(safe-area-inset-top)) {
   .pt-safe {
     padding-top: env(safe-area-inset-top);
   }
 }
 
-/* Fallback for older browsers */
 .pt-safe {
   padding-top: 0;
-  padding-top: constant(safe-area-inset-top); /* iOS 11.0 */
-  padding-top: env(safe-area-inset-top); /* iOS 11.2+ */
+  padding-top: constant(safe-area-inset-top);
+  padding-top: env(safe-area-inset-top);
 }
