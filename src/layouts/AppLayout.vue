@@ -54,7 +54,7 @@ const pageTitle = computed(() => {
         </header>
 
        <!-- Main Content -->
-        <main class="flex-1 overflow-y-auto max-w-7xl mx-auto w-full">
+        <main class="flex-1 overflow-y-auto max-w-7xl mx-auto w-full pb-20">
             <slot />
         </main>
 
