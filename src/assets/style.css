@@ -2,33 +2,34 @@
 @tailwind components;
 @tailwind utilities;
 
-/* Disable double-tap zoom */
+/* Disable zoom and pull-to-refresh */
 * {
-  touch-action: manipulation;
-}
-
-/* Prevent text selection on double-tap */
-body {
+  touch-action: pan-y pinch-zoom;
   -webkit-user-select: none;
   user-select: none;
-  -webkit-touch-callout: none;
 }
 
-/* Allow text selection in inputs only */
-input, textarea {
-  -webkit-user-select: text;
-  user-select: text;
-}
-
-body {
-  overscroll-behavior: none;
+html, body {
+  margin: 0;
+  padding: 0;
+  overscroll-behavior-y: contain; /* Prevents pull-to-refresh */
   position: fixed;
+  overflow: hidden;
   width: 100%;
   height: 100%;
 }
 
 #app {
+  width: 100%;
   height: 100vh;
   overflow-y: auto;
+  overflow-x: hidden;
   -webkit-overflow-scrolling: touch;
+  overscroll-behavior-y: contain; /* Critical for preventing reload */
+}
+
+/* Allow text selection in inputs */
+input, textarea {
+  -webkit-user-select: text;
+  user-select: text;
 }
