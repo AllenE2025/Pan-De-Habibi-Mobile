@@ -268,7 +268,7 @@ const completeSale = async () => {
                         <label class="block text-sm font-bold text-gray-700 mb-2">
                             Customer's Cash
                         </label>
-                        <input v-model.number="customerCash" type="number" min="0" step="0.01" placeholder="₱0.00"
+                        <input @keydown.enter="($event.target as HTMLInputElement).blur()"  v-model.number="customerCash" type="number" min="0" step="0.01" placeholder="₱0.00"
                             class="w-full text-2xl font-bold border-2 border-gray-300 rounded-2xl p-4 focus:ring-4 focus:ring-purple-200 focus:border-purple-500 outline-none transition-all" />
                     </div>
 
