@@ -27,7 +27,7 @@ const pageTitle = computed(() => {
 </script>
 
 <template>
-    <div class="h-full bg-gradient-to-br from-orange-50 via-pink-50 to-purple-50 pb-20 flex flex-col overflow-hidden">
+    <div class="h-full bg-gradient-to-br from-orange-50 via-pink-50 to-purple-50 flex flex-col overflow-hidden">
         <!-- PWA Install Prompt -->
         <PWAInstall />
 
